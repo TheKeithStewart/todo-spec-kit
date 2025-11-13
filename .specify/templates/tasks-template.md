@@ -8,7 +8,7 @@ description: "Task list template for feature implementation"
 **Input**: Design documents from `/specs/[###-feature-name]/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: Playwright E2E tests are MANDATORY per the constitution (Principle II). All user stories MUST have Playwright tests covering desktop, tablet, and mobile viewports.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -79,21 +79,27 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+### Playwright Tests for User Story 1 (MANDATORY - Constitution Principle II) ⚠️
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T010 [P] [US1] Playwright E2E test for [user journey] - Desktop (1920x1080) in tests/e2e/[name].spec.ts
+- [ ] T011 [P] [US1] Playwright E2E test for [user journey] - Tablet (768x1024) in tests/e2e/[name].spec.ts
+- [ ] T012 [P] [US1] Playwright E2E test for [user journey] - Mobile (375x667) in tests/e2e/[name].spec.ts
+- [ ] T013 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py (if applicable)
+- [ ] T014 [P] [US1] Component test for [component] in tests/component/[name].spec.ts (if new component)
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T015 [P] [US1] Create/reuse [Component] from design system in src/components/[component].tsx
+- [ ] T016 [P] [US1] Create [Entity1] model in src/models/[entity1].py
+- [ ] T017 [P] [US1] Create [Entity2] model in src/models/[entity2].py
+- [ ] T018 [US1] Implement [Service] in src/services/[service].py (depends on T016, T017)
+- [ ] T019 [US1] Implement [endpoint/feature] with responsive design in src/[location]/[file].tsx
+- [ ] T020 [US1] Add validation and error handling
+- [ ] T021 [US1] Add logging for user story 1 operations
+- [ ] T022 [US1] Verify touch targets meet 44x44px minimum
+- [ ] T023 [US1] Document component usage and accessibility guidelines
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -105,17 +111,20 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+### Playwright Tests for User Story 2 (MANDATORY - Constitution Principle II) ⚠️
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T024 [P] [US2] Playwright E2E test for [user journey] - Desktop in tests/e2e/[name].spec.ts
+- [ ] T025 [P] [US2] Playwright E2E test for [user journey] - Tablet in tests/e2e/[name].spec.ts
+- [ ] T026 [P] [US2] Playwright E2E test for [user journey] - Mobile in tests/e2e/[name].spec.ts
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+- [ ] T027 [P] [US2] Create/reuse design system components in src/components/
+- [ ] T028 [P] [US2] Create [Entity] model in src/models/[entity].py
+- [ ] T029 [US2] Implement [Service] in src/services/[service].py
+- [ ] T030 [US2] Implement [endpoint/feature] with responsive design in src/[location]/[file].tsx
+- [ ] T031 [US2] Integrate with User Story 1 components (if needed)
+- [ ] T032 [US2] Document components and API contracts
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -127,16 +136,19 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
+### Playwright Tests for User Story 3 (MANDATORY - Constitution Principle II) ⚠️
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T033 [P] [US3] Playwright E2E test for [user journey] - Desktop in tests/e2e/[name].spec.ts
+- [ ] T034 [P] [US3] Playwright E2E test for [user journey] - Tablet in tests/e2e/[name].spec.ts
+- [ ] T035 [P] [US3] Playwright E2E test for [user journey] - Mobile in tests/e2e/[name].spec.ts
 
 ### Implementation for User Story 3
 
-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T036 [P] [US3] Create/reuse design system components in src/components/
+- [ ] T037 [P] [US3] Create [Entity] model in src/models/[entity].py
+- [ ] T038 [US3] Implement [Service] in src/services/[service].py
+- [ ] T039 [US3] Implement [endpoint/feature] with responsive design in src/[location]/[file].tsx
+- [ ] T040 [US3] Document components and API contracts
 
 **Checkpoint**: All user stories should now be independently functional
 

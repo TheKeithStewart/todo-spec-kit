@@ -31,7 +31,33 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**Cross-Platform First (Principle I)**:
+- [ ] Feature tested on desktop, mobile, and tablet viewports
+- [ ] Touch and mouse interactions supported
+- [ ] Performance targets defined for all device types
+
+**Test-Driven Development with Playwright (Principle II - NON-NEGOTIABLE)**:
+- [ ] Playwright test plan defined for all user stories
+- [ ] Tests cover desktop (1920x1080), tablet (768x1024), mobile (375x667) viewports
+- [ ] Test-first approach documented (write tests → fail → implement)
+
+**Design System & Component Library (Principle III)**:
+- [ ] Required components identified and documented
+- [ ] Reusing existing components where possible
+- [ ] New components justified and documented with examples
+- [ ] Component accessibility guidelines defined
+
+**Documentation First (Principle IV)**:
+- [ ] Feature specification (spec.md) complete
+- [ ] Component usage documentation planned
+- [ ] API contracts documented
+- [ ] README/quickstart updates identified
+
+**Responsive Design (Principle V)**:
+- [ ] Responsive layout patterns identified
+- [ ] Touch target sizes meet 44x44px minimum
+- [ ] Mobile navigation patterns defined
+- [ ] Viewport adaptation strategy documented
 
 ## Project Structure
 

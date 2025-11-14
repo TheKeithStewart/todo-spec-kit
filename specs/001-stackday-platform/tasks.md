@@ -111,8 +111,8 @@ Per plan.md, using monorepo structure:
 ### Prototype Implementation
 
 - [ ] T040 [US2] Create low-fidelity prototype layouts in Figma or design tool (external to codebase)
-- [ ] T041 [P] [US2] Create responsive layout components (Header, Sidebar, Main) in packages/ui/src/components/Layout/
-- [ ] T042 [P] [US2] Create Grid/Flex layout utilities in packages/ui/src/components/Layout/Grid.tsx
+- [x] T041 [P] [US2] Create responsive layout components (Header, Sidebar, Main) in packages/ui/src/components/Layout/
+- [x] T042 [P] [US2] Create Grid/Flex layout utilities in packages/ui/src/components/Layout/Grid.tsx
 - [ ] T043 [US2] Create prototype dashboard page in apps/web/src/pages/PrototypeDashboard.tsx
 - [ ] T044 [P] [US2] Create prototype task list component in apps/web/src/components/prototype/TaskList.tsx
 - [ ] T045 [P] [US2] Create prototype calendar view component in apps/web/src/components/prototype/CalendarView.tsx
@@ -121,22 +121,22 @@ Per plan.md, using monorepo structure:
 
 ### Design System Components
 
-- [ ] T048 [P] [US2] Create Modal component with variants in packages/ui/src/components/Modal.tsx
-- [ ] T049 [P] [US2] Create Modal Storybook story in packages/ui/src/components/Modal.stories.tsx
-- [ ] T050 [P] [US2] Create Dropdown component in packages/ui/src/components/Dropdown.tsx
-- [ ] T051 [P] [US2] Create Dropdown Storybook story in packages/ui/src/components/Dropdown.stories.tsx
-- [ ] T052 [P] [US2] Create DatePicker component in packages/ui/src/components/DatePicker.tsx
-- [ ] T053 [P] [US2] Create DatePicker Storybook story in packages/ui/src/components/DatePicker.stories.tsx
-- [ ] T054 [P] [US2] Create TimePicker component in packages/ui/src/components/TimePicker.tsx
-- [ ] T055 [P] [US2] Create TimePicker Storybook story in packages/ui/src/components/TimePicker.stories.tsx
-- [ ] T056 [P] [US2] Create Checkbox component in packages/ui/src/components/Checkbox.tsx
-- [ ] T057 [P] [US2] Create Checkbox Storybook story in packages/ui/src/components/Checkbox.stories.tsx
-- [ ] T058 [P] [US2] Create Select component in packages/ui/src/components/Select.tsx
-- [ ] T059 [P] [US2] Create Select Storybook story in packages/ui/src/components/Select.stories.tsx
-- [ ] T060 [P] [US2] Create Badge component for labels in packages/ui/src/components/Badge.tsx
-- [ ] T061 [P] [US2] Create Badge Storybook story in packages/ui/src/components/Badge.stories.tsx
-- [ ] T062 [P] [US2] Create Alert/Notification component in packages/ui/src/components/Alert.tsx
-- [ ] T063 [P] [US2] Create Alert Storybook story in packages/ui/src/components/Alert.stories.tsx
+- [x] T048 [P] [US2] Create Modal component with variants in packages/ui/src/components/Modal.tsx
+- [x] T049 [P] [US2] Create Modal Storybook story in packages/ui/src/components/Modal.stories.tsx
+- [x] T050 [P] [US2] Create Dropdown component in packages/ui/src/components/Dropdown.tsx
+- [x] T051 [P] [US2] Create Dropdown Storybook story in packages/ui/src/components/Dropdown.stories.tsx
+- [x] T052 [P] [US2] Create DatePicker component in packages/ui/src/components/DatePicker.tsx
+- [x] T053 [P] [US2] Create DatePicker Storybook story in packages/ui/src/components/DatePicker.stories.tsx
+- [x] T054 [P] [US2] Create TimePicker component in packages/ui/src/components/TimePicker.tsx
+- [x] T055 [P] [US2] Create TimePicker Storybook story in packages/ui/src/components/TimePicker.stories.tsx
+- [x] T056 [P] [US2] Create Checkbox component in packages/ui/src/components/Checkbox.tsx
+- [x] T057 [P] [US2] Create Checkbox Storybook story in packages/ui/src/components/Checkbox.stories.tsx
+- [x] T058 [P] [US2] Create Select component in packages/ui/src/components/Select.tsx
+- [x] T059 [P] [US2] Create Select Storybook story in packages/ui/src/components/Select.stories.tsx
+- [x] T060 [P] [US2] Create Badge component for labels in packages/ui/src/components/Badge.tsx
+- [x] T061 [P] [US2] Create Badge Storybook story in packages/ui/src/components/Badge.stories.tsx
+- [x] T062 [P] [US2] Create Alert/Notification component in packages/ui/src/components/Alert.tsx
+- [x] T063 [P] [US2] Create Alert Storybook story in packages/ui/src/components/Alert.stories.tsx
 
 ### Responsive Design Implementation
 

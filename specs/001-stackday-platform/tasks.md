@@ -75,30 +75,30 @@ Per plan.md, using monorepo structure:
 
 ### Database & Authentication
 
-- [ ] T024 Create Supabase database schema for User table with preferences in apps/api/supabase/migrations/001_create_users.sql
-- [ ] T025 Setup Supabase Auth configuration with email/password and OAuth providers in Supabase dashboard
-- [ ] T026 [P] Create authentication middleware for API routes in apps/api/src/middleware/auth.ts
-- [ ] T027 [P] Create Supabase client configuration in apps/web/src/lib/supabase.ts
-- [ ] T028 [P] Implement user authentication context in apps/web/src/contexts/AuthContext.tsx
+- [x] T024 Create Supabase database schema for User table with preferences in apps/api/supabase/migrations/001_create_users.sql
+- [x] T025 Setup Supabase Auth configuration with email/password and OAuth providers in apps/api/supabase/config.toml
+- [x] T026 [P] Create authentication middleware for API routes in apps/api/src/middleware/auth.ts
+- [x] T027 [P] Create Supabase client configuration in apps/web/src/services/supabase.ts
+- [x] T028 [P] Implement user authentication context in apps/web/src/contexts/AuthContext.tsx
 
 ### Design System Foundation
 
-- [ ] T029 [P] Define design tokens (colors, typography, spacing) in packages/ui/src/tokens/index.ts
-- [ ] T030 [P] Create base Button component with variants in packages/ui/src/components/Button.tsx
-- [ ] T031 [P] Create Button Storybook story in packages/ui/src/components/Button.stories.tsx
-- [ ] T032 [P] Create base Input component in packages/ui/src/components/Input.tsx
-- [ ] T033 [P] Create Input Storybook story in packages/ui/src/components/Input.stories.tsx
-- [ ] T034 [P] Create base Card component in packages/ui/src/components/Card.tsx
-- [ ] T035 [P] Create Card Storybook story in packages/ui/src/components/Card.stories.tsx
+- [x] T029 [P] Define design tokens (colors, typography, spacing) in packages/ui/src/tokens/index.ts
+- [x] T030 [P] Create base Button component with variants in packages/ui/src/components/Button.tsx
+- [x] T031 [P] Create Button Storybook story in packages/ui/src/components/Button.stories.tsx
+- [x] T032 [P] Create base Input component in packages/ui/src/components/Input.tsx
+- [x] T033 [P] Create Input Storybook story in packages/ui/src/components/Input.stories.tsx
+- [x] T034 [P] Create base Card component in packages/ui/src/components/Card.tsx
+- [x] T035 [P] Create Card Storybook story in packages/ui/src/components/Card.stories.tsx
 
 ### Core Infrastructure
 
-- [ ] T036 [P] Setup error handling utilities in apps/web/src/utils/errors.ts and apps/api/src/utils/errors.ts
-- [ ] T037 [P] Setup logging infrastructure in apps/api/src/utils/logger.ts
-- [ ] T038 [P] Create API client wrapper for Supabase queries in apps/web/src/services/api-client.ts
-- [ ] T039 [P] Setup routing configuration in apps/web/src/router.tsx
+- [x] T036 [P] Setup error handling utilities in apps/web/src/utils/errors.ts and apps/api/src/utils/errors.ts
+- [x] T037 [P] Setup logging infrastructure in apps/api/src/utils/logger.ts
+- [x] T038 [P] Create API client wrapper for Supabase queries in apps/web/src/services/api-client.ts
+- [x] T039 [P] Setup routing configuration in apps/web/src/router.tsx
 
-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+**Checkpoint**: ✅ Foundation ready - user story implementation can now begin in parallel
 
 ---
 

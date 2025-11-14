@@ -1,0 +1,10 @@
+node_modules/
+dist/
+build/
+coverage/
+.next/
+.nuxt/
+.vite/
+storybook-static/
+*.config.js
+*.config.ts

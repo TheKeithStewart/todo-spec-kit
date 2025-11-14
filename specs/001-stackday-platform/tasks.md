@@ -18,6 +18,7 @@
 ## Path Conventions
 
 Per plan.md, using monorepo structure:
+
 - Frontend: `apps/web/src/`
 - Backend: `apps/api/src/`
 - Shared UI: `packages/ui/src/`
@@ -29,19 +30,19 @@ Per plan.md, using monorepo structure:
 
 **Purpose**: Resolve remaining NEEDS CLARIFICATION items from plan.md
 
-- [ ] T001 [P] Research and document state management choice (Redux Toolkit vs Zustand vs Jotai vs Context API) in specs/001-stackday-platform/research.md
-- [ ] T002 [P] Research and document styling solution (Tailwind CSS vs CSS Modules vs Styled Components) in specs/001-stackday-platform/research.md
-- [ ] T003 [P] Research and document package manager choice (npm vs pnpm vs yarn) in specs/001-stackday-platform/research.md
-- [ ] T004 [P] Research and document API pattern choice (REST vs GraphQL vs tRPC) in specs/001-stackday-platform/research.md
-- [ ] T005 [P] Research and document date/time library (date-fns vs Day.js vs Luxon) in specs/001-stackday-platform/research.md
-- [ ] T006 [P] Research and document deployment platform (Vercel vs Netlify vs Railway) in specs/001-stackday-platform/research.md
-- [ ] T007 Document Supabase architecture decisions (already chosen) in specs/001-stackday-platform/research.md
-- [ ] T008 Document webhook + polling hybrid sync strategy (already chosen) in specs/001-stackday-platform/research.md
-- [ ] T009 Create data model documentation in specs/001-stackday-platform/data-model.md based on spec entities
-- [ ] T010 Create API contracts in specs/001-stackday-platform/contracts/ directory
-- [ ] T011 Create quickstart guide in specs/001-stackday-platform/quickstart.md
+- [x] T001 [P] Research and document state management choice (Redux Toolkit vs Zustand vs Jotai vs Context API) in specs/001-stackday-platform/research.md
+- [x] T002 [P] Research and document styling solution (Tailwind CSS vs CSS Modules vs Styled Components) in specs/001-stackday-platform/research.md
+- [x] T003 [P] Research and document package manager choice (npm vs pnpm vs yarn) in specs/001-stackday-platform/research.md
+- [x] T004 [P] Research and document API pattern choice (REST vs GraphQL vs tRPC) in specs/001-stackday-platform/research.md
+- [x] T005 [P] Research and document date/time library (date-fns vs Day.js vs Luxon) in specs/001-stackday-platform/research.md
+- [x] T006 [P] Research and document deployment platform (Vercel vs Netlify vs Railway) in specs/001-stackday-platform/research.md
+- [x] T007 Document Supabase architecture decisions (already chosen) in specs/001-stackday-platform/research.md
+- [x] T008 Document webhook + polling hybrid sync strategy (already chosen) in specs/001-stackday-platform/research.md
+- [x] T009 Create data model documentation in specs/001-stackday-platform/data-model.md based on spec entities
+- [x] T010 Create API contracts in specs/001-stackday-platform/contracts/ directory
+- [x] T011 Create quickstart guide in specs/001-stackday-platform/quickstart.md
 
-**Checkpoint**: All research complete, technical stack finalized
+**Checkpoint**: ✅ All research complete, technical stack finalized
 
 ---
 
@@ -49,20 +50,20 @@ Per plan.md, using monorepo structure:
 
 **Purpose**: Project initialization and monorepo structure
 
-- [ ] T012 Initialize monorepo with chosen package manager at repository root
-- [ ] T013 Create project structure: apps/web/, apps/api/, packages/ui/, docs/
-- [ ] T014 [P] Configure TypeScript 5.3+ with strict mode in root tsconfig.json
-- [ ] T015 [P] Configure ESLint and Prettier in root .eslintrc.js and .prettierrc
-- [ ] T016 [P] Setup Vite 5+ for apps/web with React 18+ in apps/web/vite.config.ts
-- [ ] T017 [P] Initialize Supabase project and get connection credentials
-- [ ] T018 [P] Setup environment variable management (.env files for local, secure storage for production)
-- [ ] T019 [P] Configure Vitest for unit/integration tests in apps/web/vitest.config.ts
-- [ ] T020 [P] Configure Playwright for E2E tests in apps/web/playwright.config.ts
-- [ ] T021 [P] Initialize Storybook 7+ in packages/ui/.storybook/
-- [ ] T022 [P] Setup Git hooks (husky/lint-staged) for pre-commit linting
-- [ ] T023 Create CI/CD pipeline configuration for chosen deployment platform
+- [x] T012 Initialize monorepo with chosen package manager at repository root
+- [x] T013 Create project structure: apps/web/, apps/api/, packages/ui/, docs/
+- [x] T014 [P] Configure TypeScript 5.3+ with strict mode in root tsconfig.json
+- [x] T015 [P] Configure ESLint and Prettier in root .eslintrc.js and .prettierrc
+- [x] T016 [P] Setup Vite 5+ for apps/web with React 18+ in apps/web/vite.config.ts
+- [x] T017 [P] Initialize Supabase project and get connection credentials
+- [x] T018 [P] Setup environment variable management (.env files for local, secure storage for production)
+- [x] T019 [P] Configure Vitest for unit/integration tests in apps/web/vitest.config.ts
+- [x] T020 [P] Configure Playwright for E2E tests in apps/web/playwright.config.ts
+- [x] T021 [P] Initialize Storybook 7+ in packages/ui/.storybook/
+- [x] T022 [P] Setup Git hooks (husky/lint-staged) for pre-commit linting
+- [x] T023 Create CI/CD pipeline configuration for chosen deployment platform
 
-**Checkpoint**: Project structure ready, all tooling configured
+**Checkpoint**: ✅ Project structure ready, all tooling configured
 
 ---
 
@@ -854,12 +855,14 @@ Per plan.md, using monorepo structure:
 ### User Story Dependencies
 
 **MVP Stories** (must complete for initial release):
+
 - **User Story 2 (P1)**: Can start after Foundational - No dependencies on other stories
 - **User Story 1 (P1)**: Can start after Foundational - Should follow US2 to use design system
 - **User Story 3 - Google Calendar (P2)**: Depends on US1 (needs Task and FocusBlock entities)
 - **User Story 3 - Todoist (P2)**: Depends on US1 (needs Task and Project entities)
 
 **Post-MVP Stories** (can be prioritized and sequenced after MVP):
+
 - **User Story 4 (P3)**: Depends on US1 (needs Task completion tracking)
 - **User Story 5 (P3)**: Depends on US1 and US3-Calendar (needs tasks and calendar for planning)
 - **User Story 6 (P3)**: Depends on US1 (needs task completion and rescheduling)
@@ -885,17 +888,20 @@ Per plan.md, using monorepo structure:
 **Phase 1 Setup**: Most tasks marked [P] can run in parallel after T012-T013 (project structure)
 
 **Phase 2 Foundational**:
+
 - Database tasks (T024-T025) can run in parallel
 - Design system components (T029-T035) can all run in parallel
 - Infrastructure utilities (T036-T039) can run in parallel
 
 **Within Each User Story**:
+
 - All TypeScript type definitions can run in parallel
 - All API services can run in parallel after types complete
 - All UI components can run in parallel after state management complete
 - All Playwright tests can run in parallel at any time
 
 **User Stories Can Run in Parallel** (if team capacity allows):
+
 - After Foundational phase completes, different team members can work on different user stories simultaneously
 
 ---
@@ -1005,6 +1011,7 @@ With multiple developers (3+):
 - Post-MVP features can be prioritized based on user feedback after MVP launch
 
 **Recommended Next Steps**:
+
 1. Complete Phase 0 research to finalize all technical decisions
 2. Begin Phase 1 setup to establish project structure
 3. Complete Phase 2 foundational work (critical blocker for all stories)

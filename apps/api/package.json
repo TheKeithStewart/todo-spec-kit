@@ -4,12 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vercel dev",
+    "dev": "echo 'API functions will be deployed to Vercel. Use pnpm vercel:dev to test locally.'",
     "build": "tsc",
     "test": "vitest",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "vercel:dev": "vercel dev --yes"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.0"

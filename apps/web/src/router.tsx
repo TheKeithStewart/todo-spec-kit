@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import App from './App';
 import PrototypeDashboard from './pages/PrototypeDashboard';
 
@@ -8,9 +8,9 @@ import PrototypeDashboard from './pages/PrototypeDashboard';
  */
 
 // Layout components (to be implemented)
-const RootLayout = () => <div>Root Layout</div>;
-const AuthLayout = () => <div>Auth Layout</div>;
-const DashboardLayout = () => <div>Dashboard Layout</div>;
+const RootLayout = () => <Outlet />;
+const AuthLayout = () => <Outlet />;
+const DashboardLayout = () => <Outlet />;
 
 // Page components (to be implemented)
 const HomePage = () => <App />;

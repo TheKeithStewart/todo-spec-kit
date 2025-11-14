@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from './App';
+import PrototypeDashboard from './pages/PrototypeDashboard';
 
 /**
  * Application routing configuration
@@ -15,7 +16,6 @@ const DashboardLayout = () => <div>Dashboard Layout</div>;
 const HomePage = () => <App />;
 const LoginPage = () => <div>Login Page</div>;
 const SignUpPage = () => <div>Sign Up Page</div>;
-const DashboardPage = () => <div>Dashboard</div>;
 const TasksPage = () => <div>Tasks</div>;
 const CalendarPage = () => <div>Calendar</div>;
 const FocusPage = () => <div>Focus Mode</div>;
@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'dashboard',
-            element: <DashboardPage />,
+            element: <PrototypeDashboard />,
           },
           {
             path: 'tasks',

@@ -2,8 +2,20 @@
 
 **Feature Branch**: `001-stackday-platform`
 **Created**: 2025-11-14
+**Updated**: 2025-11-14
 **Status**: Draft
 **Input**: User description: "The name of the product will be StackDay..."
+
+## Platform Requirements
+
+StackDay must support multiple platforms and screen sizes:
+- **Desktop Web Application**: Primary interface optimized for large screens and keyboard/mouse interaction
+- **Mobile Web/Native**: Touch-optimized interface for smartphones
+- **Tablet**: Adaptive interface leveraging larger screen real estate while supporting touch
+
+The application will include a comprehensive design system with component library documented in Storybook for consistent user experience across all platforms.
+
+**Initial Development Phase**: Create a functional prototype before final designs are available. The prototype will validate core user flows and interactions, informing the final design system.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -24,7 +36,26 @@ A user needs to see all their tasks for the day and create focused work blocks t
 
 ---
 
-### User Story 2 - Integrate Google Calendar (Priority: P2)
+### User Story 2 - Create Prototype and Design System (Priority: P1)
+
+Before implementing final features, create a functional prototype and design system to establish consistent user experience across desktop, mobile, and tablet platforms. The prototype validates core interactions and informs the design system, which is documented in Storybook for developer reference.
+
+**Why this priority**: Building the design foundation first ensures consistent UX across all platforms and prevents costly rework. The prototype validates user flows before investing in production-quality features. This aligns with the constitutional principle of design-first development.
+
+**Independent Test**: Can be tested by creating prototype screens for key workflows (task creation, focus block management, calendar view), building reusable components, documenting in Storybook, and validating responsive behavior on different screen sizes. Delivers value by providing a solid foundation for all subsequent development.
+
+**Acceptance Scenarios**:
+
+1. **Given** a designer or developer needs to create a new screen, **When** they check Storybook, **Then** they find documented components with usage examples and interactive demos
+2. **Given** a user accesses StackDay on desktop (1920x1080), **When** viewing the dashboard, **Then** all elements render properly with appropriate spacing and layout
+3. **Given** a user accesses StackDay on mobile (375x667), **When** viewing the same dashboard, **Then** the layout adapts to vertical orientation with touch-friendly controls
+4. **Given** a user accesses StackDay on tablet (768x1024), **When** rotating the device, **Then** the interface adapts between portrait and landscape orientations
+5. **Given** a prototype workflow for creating tasks and focus blocks, **When** tested with users, **Then** core interactions are validated before full implementation
+6. **Given** a developer needs to implement a button, **When** they reference the design system, **Then** they find standardized button variants (primary, secondary, danger) with clear usage guidelines
+
+---
+
+### User Story 3 - Integrate Google Calendar (Priority: P2)
 
 A user connects their Google Calendar account to StackDay and sees all their existing calendar events alongside their tasks. They can create focus blocks that respect their existing meetings and appointments, with optional breaks configured between blocks and other events.
 
@@ -197,125 +228,151 @@ When in focus mode, a user can optionally integrate with music streaming service
 
 ### Functional Requirements
 
+**Platform and Responsive Design**
+
+- **FR-001**: System MUST render correctly on desktop browsers (Chrome, Firefox, Safari, Edge) at resolutions from 1280x720 to 4K
+- **FR-002**: System MUST provide touch-optimized interface for mobile devices (iOS Safari, Android Chrome) with screens from 375px to 428px width
+- **FR-003**: System MUST adapt layout for tablet devices (768px to 1024px width) in both portrait and landscape orientations
+- **FR-004**: System MUST maintain consistent user experience across all supported platforms
+- **FR-005**: System MUST use responsive design patterns that adapt to available screen space
+- **FR-006**: System MUST support touch gestures (tap, swipe, pinch) on mobile and tablet devices
+- **FR-007**: System MUST support keyboard navigation and shortcuts on desktop
+
+**Design System and Component Library**
+
+- **FR-008**: System MUST have a documented design system with standardized components
+- **FR-009**: System MUST provide Storybook documentation with interactive component examples
+- **FR-010**: System MUST include component variants (sizes, states, themes) in Storybook
+- **FR-011**: System MUST document component usage guidelines and best practices
+- **FR-012**: System MUST maintain visual consistency using design tokens (colors, typography, spacing)
+- **FR-013**: System MUST version the design system and component library
+
+**Prototype Phase**
+
+- **FR-014**: System MUST create functional prototype for core user workflows before final design
+- **FR-015**: Prototype MUST validate task creation, focus block management, and calendar integration flows
+- **FR-016**: Prototype MUST demonstrate responsive behavior across desktop, mobile, and tablet
+- **FR-017**: Prototype MUST inform final design system and component architecture
+
 **Core Task Management**
 
-- **FR-001**: System MUST allow users to create tasks with title, description, estimated duration, and optional due date
-- **FR-002**: System MUST allow tasks to be organized into projects
-- **FR-003**: System MUST allow tasks to have sub-tasks with independent durations and completion status
-- **FR-004**: System MUST allow tasks to be tagged with labels for categorization
-- **FR-005**: System MUST persist all task data and sync across user sessions
-- **FR-006**: System MUST assign a default duration of 30 minutes to new tasks when no duration is specified
+- **FR-018**: System MUST allow users to create tasks with title, description, estimated duration, and optional due date
+- **FR-019**: System MUST allow tasks to be organized into projects
+- **FR-020**: System MUST allow tasks to have sub-tasks with independent durations and completion status
+- **FR-021**: System MUST allow tasks to be tagged with labels for categorization
+- **FR-022**: System MUST persist all task data and sync across user sessions
+- **FR-023**: System MUST assign a default duration of 30 minutes to new tasks when no duration is specified
 
 **Focus Blocks and Time Management**
 
-- **FR-007**: System MUST allow users to create focus blocks with start time, end time, and assigned tasks
-- **FR-008**: System MUST calculate total estimated time for all tasks assigned to a focus block
-- **FR-009**: System MUST warn users when total task time exceeds available focus block duration
-- **FR-010**: System MUST allow users to enter focus mode for a block, displaying only assigned tasks and time remaining
-- **FR-011**: System MUST allow users to spontaneously create focus mode by selecting duration and tasks
-- **FR-012**: System MUST create a corresponding calendar block when users enter spontaneous focus mode
+- **FR-024**: System MUST allow users to create focus blocks with start time, end time, and assigned tasks
+- **FR-025**: System MUST calculate total estimated time for all tasks assigned to a focus block
+- **FR-026**: System MUST warn users when total task time exceeds available focus block duration
+- **FR-027**: System MUST allow users to enter focus mode for a block, displaying only assigned tasks and time remaining
+- **FR-028**: System MUST allow users to spontaneously create focus mode by selecting duration and tasks
+- **FR-029**: System MUST create a corresponding calendar block when users enter spontaneous focus mode
 
 **Break Time Management**
 
-- **FR-013**: System MUST support optional configurable breaks between focus blocks and other calendar events
-- **FR-014**: System MUST allow users to configure break duration (default: 15 minutes)
-- **FR-015**: System MUST allow users to configure whether breaks occur before or after focus blocks (default: after)
-- **FR-016**: System MUST adjust focus block end times to accommodate breaks when enabled
+- **FR-030**: System MUST support optional configurable breaks between focus blocks and other calendar events
+- **FR-031**: System MUST allow users to configure break duration (default: 15 minutes)
+- **FR-032**: System MUST allow users to configure whether breaks occur before or after focus blocks (default: after)
+- **FR-033**: System MUST adjust focus block end times to accommodate breaks when enabled
 
 **Google Calendar Integration**
 
-- **FR-017**: System MUST authenticate with Google Calendar using OAuth 2.0
-- **FR-018**: System MUST retrieve and display events from multiple connected Google calendars
-- **FR-019**: System MUST allow users to set a default calendar for new events created in StackDay
-- **FR-020**: System MUST create focus blocks as calendar events in the user's chosen calendar
-- **FR-021**: System MUST allow users to edit calendar events and move them between calendars
-- **FR-022**: System MUST sync calendar changes bi-directionally (Google Calendar ↔ StackDay)
-- **FR-023**: System MUST allow users to attach tasks to existing calendar events
+- **FR-034**: System MUST authenticate with Google Calendar using OAuth 2.0
+- **FR-035**: System MUST retrieve and display events from multiple connected Google calendars
+- **FR-036**: System MUST allow users to set a default calendar for new events created in StackDay
+- **FR-037**: System MUST create focus blocks as calendar events in the user's chosen calendar
+- **FR-038**: System MUST allow users to edit calendar events and move them between calendars
+- **FR-039**: System MUST sync calendar changes bi-directionally (Google Calendar ↔ StackDay)
+- **FR-040**: System MUST allow users to attach tasks to existing calendar events
 
 **Todoist Integration**
 
-- **FR-024**: System MUST authenticate with Todoist using OAuth 2.0 or API token
-- **FR-025**: System MUST retrieve and display projects, tasks, sub-tasks, labels, and due dates from Todoist
-- **FR-026**: System MUST sync task completion status bi-directionally (Todoist ↔ StackDay)
-- **FR-027**: System MUST allow users to create and edit sub-tasks that sync back to Todoist
-- **FR-028**: System MUST preserve Todoist task metadata (labels, projects, priority) when displayed in StackDay
+- **FR-041**: System MUST authenticate with Todoist using OAuth 2.0 or API token
+- **FR-042**: System MUST retrieve and display projects, tasks, sub-tasks, labels, and due dates from Todoist
+- **FR-043**: System MUST sync task completion status bi-directionally (Todoist ↔ StackDay)
+- **FR-044**: System MUST allow users to create and edit sub-tasks that sync back to Todoist
+- **FR-045**: System MUST preserve Todoist task metadata (labels, projects, priority) when displayed in StackDay
 
 **Task Duration Learning**
 
-- **FR-029**: System MUST track actual time spent on completed tasks
-- **FR-030**: System MUST analyze historical task data to identify patterns in task duration by labels and keywords
-- **FR-031**: System MUST suggest task durations based on user's historical data for similar tasks
-- **FR-032**: System MUST display confidence indicators ("Based on your history") when suggesting learned durations
-- **FR-033**: System MUST fall back to default durations for users with insufficient historical data
-- **FR-034**: System MUST allow users to override any suggested duration before or after task creation
-- **FR-035**: System MUST track user overrides to improve future duration suggestions
+- **FR-046**: System MUST track actual time spent on completed tasks
+- **FR-047**: System MUST analyze historical task data to identify patterns in task duration by labels and keywords
+- **FR-048**: System MUST suggest task durations based on user's historical data for similar tasks
+- **FR-049**: System MUST display confidence indicators ("Based on your history") when suggesting learned durations
+- **FR-050**: System MUST fall back to default durations for users with insufficient historical data
+- **FR-051**: System MUST allow users to override any suggested duration before or after task creation
+- **FR-052**: System MUST track user overrides to improve future duration suggestions
 
 **Conflict Detection and Notifications**
 
-- **FR-036**: System MUST detect conflicts when calendar events overlap with existing focus blocks
-- **FR-037**: System MUST send notification to user when conflicts are detected
-- **FR-038**: System MUST allow users to manually resolve conflicts by rescheduling, shortening, or canceling focus blocks
-- **FR-039**: System MUST prevent silent auto-rescheduling of focus blocks without user confirmation
+- **FR-053**: System MUST detect conflicts when calendar events overlap with existing focus blocks
+- **FR-054**: System MUST send notification to user when conflicts are detected
+- **FR-055**: System MUST allow users to manually resolve conflicts by rescheduling, shortening, or canceling focus blocks
+- **FR-056**: System MUST prevent silent auto-rescheduling of focus blocks without user confirmation
 
 **Morning Planning Routine**
 
-- **FR-040**: System MUST allow users to enable/disable morning planning routine
-- **FR-041**: System MUST trigger morning planning prompt at configurable time (default: when app opens before noon)
-- **FR-042**: System MUST display all tasks and available time blocks during planning
-- **FR-043**: System MUST calculate total available time (time not blocked by meetings/events)
-- **FR-044**: System MUST warn when total planned task time exceeds available time
-- **FR-045**: System MUST create focus blocks for tasks scheduled during morning planning
+- **FR-057**: System MUST allow users to enable/disable morning planning routine
+- **FR-058**: System MUST trigger morning planning prompt at configurable time (default: when app opens before noon)
+- **FR-059**: System MUST display all tasks and available time blocks during planning
+- **FR-060**: System MUST calculate total available time (time not blocked by meetings/events)
+- **FR-061**: System MUST warn when total planned task time exceeds available time
+- **FR-062**: System MUST create focus blocks for tasks scheduled during morning planning
 
 **Evening Review Routine**
 
-- **FR-046**: System MUST allow users to enable/disable evening review routine
-- **FR-047**: System MUST trigger evening review prompt at configurable time (default: 6pm or when app opens after 5pm)
-- **FR-048**: System MUST display all completed and incomplete tasks from the current day
-- **FR-049**: System MUST suggest tasks that may have been completed but not marked as such
-- **FR-050**: System MUST allow users to reschedule incomplete tasks to future days
-- **FR-051**: System MUST show next day's available time slots when rescheduling
-- **FR-052**: System MUST warn when next day has insufficient capacity for rescheduled tasks
+- **FR-063**: System MUST allow users to enable/disable evening review routine
+- **FR-064**: System MUST trigger evening review prompt at configurable time (default: 6pm or when app opens after 5pm)
+- **FR-065**: System MUST display all completed and incomplete tasks from the current day
+- **FR-066**: System MUST suggest tasks that may have been completed but not marked as such
+- **FR-067**: System MUST allow users to reschedule incomplete tasks to future days
+- **FR-068**: System MUST show next day's available time slots when rescheduling
+- **FR-069**: System MUST warn when next day has insufficient capacity for rescheduled tasks
 
 **Notes and Documentation**
 
-- **FR-053**: System MUST allow users to create and edit notes attached to tasks
-- **FR-054**: System MUST allow users to create standalone note documents
-- **FR-055**: System MUST allow multiple note documents to be associated with a project
-- **FR-056**: System MUST support formatted text in notes (headers, lists, bold, italic, links)
-- **FR-057**: System MUST persist notes and make them accessible across sessions
+- **FR-070**: System MUST allow users to create and edit notes attached to tasks
+- **FR-071**: System MUST allow users to create standalone note documents
+- **FR-072**: System MUST allow multiple note documents to be associated with a project
+- **FR-073**: System MUST support formatted text in notes (headers, lists, bold, italic, links)
+- **FR-074**: System MUST persist notes and make them accessible across sessions
 
 **Custom Routines**
 
-- **FR-058**: System MUST allow users to create custom recurring routines with name, schedule, and associated tasks
-- **FR-059**: System MUST support recurrence patterns: daily, weekly (specific days), monthly (specific date or last day), custom intervals
-- **FR-060**: System MUST create routine instances based on recurrence schedule
-- **FR-061**: System MUST NOT automatically reschedule incomplete routine tasks to the next day
-- **FR-062**: System MUST track routine completion history
+- **FR-075**: System MUST allow users to create custom recurring routines with name, schedule, and associated tasks
+- **FR-076**: System MUST support recurrence patterns: daily, weekly (specific days), monthly (specific date or last day), custom intervals
+- **FR-077**: System MUST create routine instances based on recurrence schedule
+- **FR-078**: System MUST NOT automatically reschedule incomplete routine tasks to the next day
+- **FR-079**: System MUST track routine completion history
 
 **GitHub Integration**
 
-- **FR-063**: System MUST authenticate with GitHub using OAuth 2.0
-- **FR-064**: System MUST retrieve assigned pull requests and issues from user's repositories
-- **FR-065**: System MUST retrieve PR metadata including lines changed, files changed, and other size metrics
-- **FR-066**: System MUST track time spent on PR reviews to learn duration patterns
-- **FR-067**: System MUST suggest PR review durations based on PR size and user's historical review times for similar-sized PRs
-- **FR-068**: System MUST allow users to assign GitHub PRs and issues to focus blocks
-- **FR-069**: System MUST sync completion status for GitHub work items
+- **FR-080**: System MUST authenticate with GitHub using OAuth 2.0
+- **FR-081**: System MUST retrieve assigned pull requests and issues from user's repositories
+- **FR-082**: System MUST retrieve PR metadata including lines changed, files changed, and other size metrics
+- **FR-083**: System MUST track time spent on PR reviews to learn duration patterns
+- **FR-084**: System MUST suggest PR review durations based on PR size and user's historical review times for similar-sized PRs
+- **FR-085**: System MUST allow users to assign GitHub PRs and issues to focus blocks
+- **FR-086**: System MUST sync completion status for GitHub work items
 
 **Linear Integration**
 
-- **FR-070**: System MUST authenticate with Linear using OAuth 2.0 or API key
-- **FR-071**: System MUST retrieve assigned issues with status, priority, and project
-- **FR-072**: System MUST allow users to assign Linear issues to focus blocks
-- **FR-073**: System MUST sync issue status updates bi-directionally (Linear ↔ StackDay)
+- **FR-087**: System MUST authenticate with Linear using OAuth 2.0 or API key
+- **FR-088**: System MUST retrieve assigned issues with status, priority, and project
+- **FR-089**: System MUST allow users to assign Linear issues to focus blocks
+- **FR-090**: System MUST sync issue status updates bi-directionally (Linear ↔ StackDay)
 
 **Focus Mode Enhancements**
 
-- **FR-074**: System MUST display only assigned tasks and time remaining during focus mode
-- **FR-075**: System MUST allow users to mark tasks complete within focus mode
-- **FR-076**: System MUST support optional music service integration (authentication and playlist access)
-- **FR-077**: System MUST allow music playback control within focus mode interface
-- **FR-078**: System MUST automatically pause music during breaks when enabled
+- **FR-091**: System MUST display only assigned tasks and time remaining during focus mode
+- **FR-092**: System MUST allow users to mark tasks complete within focus mode
+- **FR-093**: System MUST support optional music service integration (authentication and playlist access)
+- **FR-094**: System MUST allow music playback control within focus mode interface
+- **FR-095**: System MUST automatically pause music during breaks when enabled
 
 ### Key Entities
 
@@ -345,63 +402,103 @@ When in focus mode, a user can optionally integrate with music streaming service
 
 ### Measurable Outcomes
 
+**Platform and Responsive Design**
+
+- **SC-001**: Application renders correctly on 95%+ of desktop browsers (Chrome, Firefox, Safari, Edge)
+- **SC-002**: Mobile interface is fully functional on iOS Safari and Android Chrome with 98%+ of features accessible via touch
+- **SC-003**: Tablet interface adapts correctly between portrait and landscape with no layout breaks
+- **SC-004**: 90% of users report positive experience on their primary device (desktop, mobile, or tablet)
+- **SC-005**: Core workflows (create task, create focus block, view calendar) complete in under 5 taps/clicks on any platform
+
+**Design System and Component Library**
+
+- **SC-006**: Storybook includes documentation for 100% of reusable components
+- **SC-007**: Developers can find and implement components from Storybook in under 5 minutes
+- **SC-008**: Visual consistency score of 95%+ across all screens (measured by design token adherence)
+- **SC-009**: Component library reduces development time for new features by 40% compared to building from scratch
+
+**Prototype Validation**
+
+- **SC-010**: Prototype validates core workflows with 10+ test users before full implementation
+- **SC-011**: 80% of prototype test users can complete task creation and focus block workflows without assistance
+- **SC-012**: Prototype feedback identifies and resolves 90%+ of major UX issues before production development
+
 **User Adoption and Engagement**
 
-- **SC-001**: 80% of new users complete their first focus block within 3 days of signup
-- **SC-002**: Users create an average of 3+ focus blocks per day after first week
-- **SC-003**: 60% of users enable at least one integration (Google Calendar or Todoist) within first week
-- **SC-004**: Average session duration increases to 15+ minutes as users engage with planning features
+- **SC-013**: 80% of new users complete their first focus block within 3 days of signup
+- **SC-014**: Users create an average of 3+ focus blocks per day after first week
+- **SC-015**: 60% of users enable at least one integration (Google Calendar or Todoist) within first week
+- **SC-016**: Average session duration increases to 15+ minutes as users engage with planning features
 
 **Productivity and Time Management**
 
-- **SC-005**: Users can plan their full day (reviewing tasks, creating focus blocks, checking for over-allocation) in under 10 minutes during morning planning
-- **SC-006**: 70% of users who enable morning planning report feeling "more prepared" for their day in surveys
-- **SC-007**: Task completion rate increases by 25% for users who regularly use focus blocks compared to baseline task list usage
-- **SC-008**: Users reschedule 50% fewer tasks when using daily planning compared to ad-hoc task management
+- **SC-017**: Users can plan their full day (reviewing tasks, creating focus blocks, checking for over-allocation) in under 10 minutes during morning planning
+- **SC-018**: 70% of users who enable morning planning report feeling "more prepared" for their day in surveys
+- **SC-019**: Task completion rate increases by 25% for users who regularly use focus blocks compared to baseline task list usage
+- **SC-020**: Users reschedule 50% fewer tasks when using daily planning compared to ad-hoc task management
 
 **Integration Reliability**
 
-- **SC-009**: Calendar events sync from Google Calendar to StackDay within 5 minutes of changes
-- **SC-010**: Task completion status syncs between StackDay and Todoist within 2 minutes
-- **SC-011**: Integration sync success rate exceeds 98% (successful syncs / attempted syncs)
-- **SC-012**: Users report accurate calendar and task data in 95%+ of usage sessions
+- **SC-021**: Calendar events sync from Google Calendar to StackDay within 5 minutes of changes
+- **SC-022**: Task completion status syncs between StackDay and Todoist within 2 minutes
+- **SC-023**: Integration sync success rate exceeds 98% (successful syncs / attempted syncs)
+- **SC-024**: Users report accurate calendar and task data in 95%+ of usage sessions
 
 **Time Estimation Accuracy**
 
-- **SC-013**: Duration learning system reduces average estimation error by 40% after 2 weeks of usage (comparing default estimates vs. learned estimates vs. actual time)
-- **SC-014**: 85% of tasks with learned duration suggestions are accepted by users without modification
-- **SC-015**: Users with 30+ completed tasks see personalized duration suggestions for 60%+ of new tasks
+- **SC-025**: Duration learning system reduces average estimation error by 40% after 2 weeks of usage (comparing default estimates vs. learned estimates vs. actual time)
+- **SC-026**: 85% of tasks with learned duration suggestions are accepted by users without modification
+- **SC-027**: Users with 30+ completed tasks see personalized duration suggestions for 60%+ of new tasks
 
 **System Performance**
 
-- **SC-016**: Application loads and displays dashboard in under 2 seconds on standard broadband connection
-- **SC-017**: Focus mode transitions (entering/exiting) complete in under 1 second
-- **SC-018**: System handles task lists of 500+ items without performance degradation
-- **SC-019**: Calendar view renders full month with all events and focus blocks in under 1 second
+- **SC-028**: Application loads and displays dashboard in under 2 seconds on standard broadband connection
+- **SC-029**: Focus mode transitions (entering/exiting) complete in under 1 second
+- **SC-030**: System handles task lists of 500+ items without performance degradation
+- **SC-031**: Calendar view renders full month with all events and focus blocks in under 1 second
 
 **User Satisfaction**
 
-- **SC-020**: Net Promoter Score (NPS) of 40+ after 30 days of usage
-- **SC-021**: 75% of users rate the "focus block with time warnings" feature as "very helpful" or "essential"
-- **SC-022**: Users complete the morning planning routine on 4+ days per week when enabled
-- **SC-023**: 85% of users agree that StackDay helps them "feel more in control of their time"
+- **SC-032**: Net Promoter Score (NPS) of 40+ after 30 days of usage
+- **SC-033**: 75% of users rate the "focus block with time warnings" feature as "very helpful" or "essential"
+- **SC-034**: Users complete the morning planning routine on 4+ days per week when enabled
+- **SC-035**: 85% of users agree that StackDay helps them "feel more in control of their time"
 
 ## Assumptions
 
-- Users have access to modern web browsers or will use native mobile apps
+**Platform and Design**
+
+- Users have access to modern web browsers (Chrome, Firefox, Safari, Edge) or mobile browsers (iOS Safari 14+, Android Chrome)
+- Responsive web design is sufficient for initial version; native mobile apps can come later if needed
+- Storybook is an appropriate tool for component documentation and design system management
+- Prototype can be built using low-fidelity or high-fidelity tools (Figma interactive prototypes, coded prototypes, etc.)
+- Design system can start with basic components and expand over time
+- Component library will reduce long-term development costs despite upfront investment
+
+**User Behavior and Expectations**
+
 - Users are familiar with calendar and task management concepts
 - Default task duration of 30 minutes is reasonable for most knowledge work tasks
 - Users want to integrate existing tools rather than fully migrate to a new system
 - Most users have 4-8 hours of available work time per day after meetings
 - Break durations of 10-15 minutes are appropriate for most users
+- Morning planning happens before 12pm, evening review happens after 5pm (configurable)
+- Focus blocks are most effective when limited to 90-120 minutes (Pomodoro-adjacent research)
+
+**Technical and Integration**
+
 - Machine learning for duration estimation can start with simple pattern matching (keyword/label similarity) before more sophisticated models
 - Users will grant necessary permissions for calendar and task service integrations
 - Bi-directional sync is preferred over one-way import for integrations
-- Focus blocks are most effective when limited to 90-120 minutes (Pomodoro-adjacent research)
-- Morning planning happens before 12pm, evening review happens after 5pm (configurable)
+- OAuth 2.0 is the appropriate authentication method for third-party integrations
+- External services (Google Calendar, Todoist, GitHub, Linear) will maintain stable APIs
+
+**Feature Prioritization**
+
 - Custom routines are used by advanced users; most users will start with daily planning/review
 - Music integration is considered optional and won't be in MVP
 - GitHub and Linear integrations are specifically for developer users and can be later priorities
+- Prototype validation will save more time/cost than it takes to create
 
 ## Design Decisions
 

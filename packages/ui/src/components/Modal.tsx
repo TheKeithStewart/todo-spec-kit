@@ -1,4 +1,6 @@
 import { HTMLAttributes, forwardRef, ReactNode, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import './Modal.css';
 
 export interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   /** Whether the modal is open */
@@ -70,65 +72,69 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
       full: 'max-w-full mx-4',
     }[size];
 
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center">
+    const modalContent = (
+      <div className="modal-overlay">
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
+          className="modal-backdrop"
           onClick={closeOnBackdropClick ? onClose : undefined}
           aria-hidden="true"
         />
 
         {/* Modal */}
-        <div
-          ref={ref}
-          className={`relative bg-white rounded-lg shadow-xl ${sizeStyles} w-full m-4 max-h-[90vh] flex flex-col ${className}`}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={title ? 'modal-title' : undefined}
-          {...props}
-        >
-          {/* Header */}
-          {(title || showCloseButton) && (
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              {title && (
-                <h2 id="modal-title" className="text-xl font-semibold text-gray-900">
-                  {title}
-                </h2>
-              )}
-              {showCloseButton && (
-                <button
-                  onClick={onClose}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
-                  aria-label="Close modal"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="w-6 h-6"
+        <div className="modal-content-wrapper">
+          <div
+            ref={ref}
+            className={`relative bg-white rounded-lg shadow-xl ${sizeStyles} w-full max-h-[90vh] flex flex-col ${className}`}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={title ? 'modal-title' : undefined}
+            {...props}
+          >
+            {/* Header */}
+            {(title || showCloseButton) && (
+              <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                {title && (
+                  <h2 id="modal-title" className="text-xl font-semibold text-gray-900">
+                    {title}
+                  </h2>
+                )}
+                {showCloseButton && (
+                  <button
+                    onClick={onClose}
+                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                    aria-label="Close modal"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              )}
-            </div>
-          )}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+            )}
 
-          {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6">{children}</div>
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-6">{children}</div>
 
-          {/* Footer */}
-          {footer && (
-            <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200">
-              {footer}
-            </div>
-          )}
+            {/* Footer */}
+            {footer && (
+              <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200">
+                {footer}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
+
+    return createPortal(modalContent, document.body);
   }
 );
 

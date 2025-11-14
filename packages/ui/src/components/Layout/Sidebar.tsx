@@ -27,7 +27,8 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
     },
     ref
   ) => {
-    const baseStyles = 'h-full bg-white border-gray-200 transition-all duration-300 flex flex-col';
+    const baseStyles =
+      'h-full bg-white border-gray-200 transition-all duration-300 flex flex-col relative';
 
     const widthStyles = collapsed
       ? 'w-16'
@@ -48,7 +49,7 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
         {collapsible && (
           <button
             onClick={() => onCollapsedChange?.(!collapsed)}
-            className="absolute top-4 -right-3 w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors"
+            className="absolute top-4 -right-3 w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors z-10"
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             <svg
@@ -71,7 +72,7 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
             </svg>
           </button>
         )}
-        <div className={`flex-1 overflow-y-auto ${collapsed ? 'px-2' : 'p-4'}`}>{children}</div>
+        <div className={`flex-1 overflow-y-auto ${collapsed ? 'hidden' : 'block'}`}>{children}</div>
       </aside>
     );
   }

@@ -241,7 +241,7 @@ export default function PrototypeDashboard() {
         </Sidebar>
 
         {/* Main Content */}
-        <Main className="flex-1 p-6">
+        <Main className="flex-1 p-6 overflow-y-auto">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Page Header */}
             <div>
@@ -251,59 +251,64 @@ export default function PrototypeDashboard() {
               </p>
             </div>
 
-            {/* Calendar Section */}
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-gray-900">Calendar</h2>
-                <div className="flex gap-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      const newDate = new Date(selectedDate);
-                      if (calendarView === 'day') newDate.setDate(selectedDate.getDate() - 1);
-                      else if (calendarView === 'week') newDate.setDate(selectedDate.getDate() - 7);
-                      else newDate.setMonth(selectedDate.getMonth() - 1);
-                      setSelectedDate(newDate);
-                    }}
-                  >
-                    Previous
-                  </Button>
-                  <Button variant="ghost" size="sm" onClick={() => setSelectedDate(new Date())}>
-                    Today
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      const newDate = new Date(selectedDate);
-                      if (calendarView === 'day') newDate.setDate(selectedDate.getDate() + 1);
-                      else if (calendarView === 'week') newDate.setDate(selectedDate.getDate() + 7);
-                      else newDate.setMonth(selectedDate.getMonth() + 1);
-                      setSelectedDate(newDate);
-                    }}
-                  >
-                    Next
-                  </Button>
-                </div>
+            {/* Two Column Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Left Column - Tasks */}
+              <div>
+                <TaskList
+                  tasks={tasks}
+                  onTaskToggle={handleTaskToggle}
+                  onTaskAdd={handleTaskAdd}
+                  onTaskDelete={handleTaskDelete}
+                />
               </div>
-              <CalendarView
-                events={calendarEvents}
-                selectedDate={selectedDate}
-                onDateSelect={setSelectedDate}
-                onEventClick={handleEventClick}
-                view={calendarView}
-              />
-            </div>
 
-            {/* Tasks Section */}
-            <div>
-              <TaskList
-                tasks={tasks}
-                onTaskToggle={handleTaskToggle}
-                onTaskAdd={handleTaskAdd}
-                onTaskDelete={handleTaskDelete}
-              />
+              {/* Right Column - Calendar */}
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-2xl font-bold text-gray-900">Calendar</h2>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        const newDate = new Date(selectedDate);
+                        if (calendarView === 'day') newDate.setDate(selectedDate.getDate() - 1);
+                        else if (calendarView === 'week')
+                          newDate.setDate(selectedDate.getDate() - 7);
+                        else newDate.setMonth(selectedDate.getMonth() - 1);
+                        setSelectedDate(newDate);
+                      }}
+                    >
+                      Previous
+                    </Button>
+                    <Button variant="ghost" size="sm" onClick={() => setSelectedDate(new Date())}>
+                      Today
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        const newDate = new Date(selectedDate);
+                        if (calendarView === 'day') newDate.setDate(selectedDate.getDate() + 1);
+                        else if (calendarView === 'week')
+                          newDate.setDate(selectedDate.getDate() + 7);
+                        else newDate.setMonth(selectedDate.getMonth() + 1);
+                        setSelectedDate(newDate);
+                      }}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </div>
+                <CalendarView
+                  events={calendarEvents}
+                  selectedDate={selectedDate}
+                  onDateSelect={setSelectedDate}
+                  onEventClick={handleEventClick}
+                  view={calendarView}
+                />
+              </div>
             </div>
           </div>
         </Main>

@@ -530,3 +530,175 @@ When in focus mode, a user can optionally integrate with music streaming service
 - GitHub PRs: Learn from PR size, file count, and user's historical review times for similar-sized PRs
 - All suggestions show as defaults that users can change before saving
 - System tracks when users override to improve future suggestions
+
+### MVP Scope Definition
+
+**Decision**: The minimum viable product (MVP) includes User Story 2 (Prototype & Design System), User Story 1 (Core Focus Blocks & Tasks), User Story 3 (Google Calendar integration), and User Story 3 (Todoist integration).
+
+**Rationale**: The core value proposition of StackDay is helping users plan their tasks realistically around their existing calendar commitments. To deliver this value, the MVP must include both calendar and task management capabilities. Since Google Calendar and Todoist are two of the most popular platforms where users already maintain their calendars and tasks, integrating with these services is essential for fitting into existing workflows and driving initial adoption.
+
+**MVP Feature Set**:
+- Prototype and design system (P1) - Foundation for consistent UX
+- Core task and focus block management (P1) - Core productivity features
+- Google Calendar integration (P2) - Brings in existing calendar commitments
+- Todoist integration (P2) - Brings in existing tasks and projects
+
+**Post-MVP Features** (to be prioritized after initial release):
+- Task duration learning (P3)
+- Morning planning and evening review routines (P3)
+- Notes and documentation (P4)
+- Custom routines (P4)
+- GitHub and Linear integrations (P5)
+- Focus mode music integration (P5)
+
+### Authentication and Data Storage Architecture
+
+**Decision**: Cloud-first architecture with required user authentication and full multi-device data synchronization. Supabase will be used as the database and backend infrastructure platform.
+
+**Rationale**: Since the MVP requires Google Calendar and Todoist integrations, internet connectivity is already a prerequisite for core functionality. A cloud-first approach simplifies the architecture, ensures data consistency across devices, provides automatic backups, and enables future team features if needed. Supabase provides PostgreSQL database, authentication, real-time subscriptions, and storage in a single integrated platform, reducing infrastructure complexity and aligning with the constitutional principle of minimal dependencies.
+
+**Architecture Details**:
+- **Database**: Supabase (PostgreSQL-based) for all user data, tasks, focus blocks, integrations, and settings
+- **Authentication**: Supabase Auth with multiple provider options (email/password, OAuth with Google, GitHub, and other providers)
+- **Data Sync**: Real-time sync across devices via Supabase real-time subscriptions
+- **Storage**: Supabase storage for any user-uploaded content (future: note attachments, profile images)
+- **Offline Capability**: Minimal - application requires internet connection for core operations
+- **Data Ownership**: User data belongs to the user; account deletion removes all associated data
+
+**User Account Flow**:
+1. User signs up with email/password or OAuth provider (Google, GitHub, etc.)
+2. Upon authentication, user data syncs from Supabase to client
+3. All changes (tasks, focus blocks, settings) save to Supabase and sync to other logged-in devices
+4. Integration tokens (Google Calendar, Todoist) stored securely in Supabase with user-scoped access
+
+### Integration Sync Strategy
+
+**Decision**: Webhook + polling hybrid approach with service-specific implementations for Google Calendar and Todoist.
+
+**Rationale**: This strategy provides near real-time sync when webhooks work (optimal user experience) while maintaining reliability through fallback polling. Google Calendar webhooks are production-ready and officially recommended, making them the primary sync mechanism. Todoist webhooks are marked "best effort" with no delivery guarantees, requiring more robust fallback polling. This hybrid approach reduces API calls by 99.8% compared to pure polling (100-500 daily API calls vs 288,000 for 1,000 users) while ensuring users always see current data.
+
+**Google Calendar Implementation**:
+- **Primary Mechanism**: Webhook notifications (watch channels) for near-instant change detection
+- **Webhook Setup**: HTTPS endpoint with valid SSL certificate, domain verification via Google Search Console, webhook URL whitelisted in Google Cloud Console
+- **Channel Management**: Automatic renewal before 30-day expiration with overlapping channel management during transitions
+- **Notification Handling**: Webhook contains only trigger signals (X-Goog-Resource-State, X-Goog-Channel-ID, X-Goog-Message-Number) with no payload data; immediately call sync token endpoint to retrieve actual changes
+- **Fallback Polling**: Daily full sync check to catch any missed notifications; immediate full re-sync on 410 errors (expired sync token)
+- **Reliability**: Google provides retry logic with exponential backoff for 500/502/503/504 errors; message numbering helps detect gaps
+- **Special Cases**: Some calendars (e.g., "Public holidays") don't support webhooks and require polling
+
+**Todoist Implementation**:
+- **Primary Mechanism**: Webhook notifications as optimization for reduced latency
+- **Webhook Setup**: HTTPS endpoint, OAuth authentication (required for webhooks), HMAC signature verification (X-Todoist-Hmac-SHA256)
+- **Webhook Limitations**: "Best effort" delivery with no guarantees, can arrive out of order or duplicated, may fail without retry
+- **Fallback Polling**: Mandatory scheduled polling every 5-15 minutes regardless of webhook receipt; webhooks treated as latency optimization, not reliability mechanism
+- **Duplicate Handling**: Use X-Todoist-Delivery-ID header for deduplication
+- **Out-of-Order Handling**: Timestamp-based conflict resolution; handle receiving item:updated before item:added for same task
+
+**Conflict Resolution Strategy**:
+- **Simultaneous Edits**: Last write wins based on timestamp comparison
+- **External Deletion with StackDay Dependencies**:
+  - Tasks: Mark as "disconnected" from source, preserve in StackDay, notify user with option to reconnect or delete
+  - Calendar Events with Assigned Tasks: Keep focus block, mark calendar source as deleted, notify user with option to recreate event or convert to standalone focus block
+- **StackDay Edit of Externally Deleted Item**: Show error notification, offer to recreate in external service or remove from StackDay
+- **Notification Approach**: Non-blocking notifications in UI; user can continue working while resolving conflicts
+
+**Infrastructure Requirements**:
+- Public HTTPS endpoint with CA-signed certificate (Let's Encrypt)
+- Domain ownership verification for Google Calendar
+- Webhook endpoint hosting (serverless function or dedicated backend)
+- Channel renewal management for Google Calendar (every 30 days)
+- Supabase Edge Functions or similar for webhook receivers
+
+**Estimated Costs** (for MVP scale):
+- API usage: $0 (both services are free)
+- Infrastructure: $8-30/month (webhook hosting, domain, SSL, monitoring)
+- For 1,000 users: ~100-500 daily API calls (vs 288,000 with 5-minute polling)
+
+### Task Duration Tracking Mechanism
+
+**Decision**: Hybrid tracking approach combining automatic tracking in focus mode with optional manual timers and bulk estimation for untracked tasks.
+
+**Rationale**: Different users work in different ways - some use structured focus blocks, others work more flexibly. A hybrid approach accommodates both work styles while maximizing data collection for the duration learning model. Automatic tracking in focus mode provides convenience without requiring user action. Manual timers support flexible work outside focus blocks. Bulk estimation captures data even when users forget to track, ensuring the learning model improves over time.
+
+**Tracking Methods**:
+
+1. **Automatic Focus Mode Tracking** (Primary):
+   - When a user completes tasks within a focus block, system automatically records actual duration
+   - Calculation: (focus block duration) / (number of tasks completed in that block)
+   - Example: 2-hour focus block with 3 completed tasks = 40 minutes actual duration per task
+   - No user action required; most convenient for structured work
+   - Limitation: Assumes equal time distribution across tasks in the block
+
+2. **Manual Timer** (Optional):
+   - Users can start/stop timer on individual tasks outside focus mode
+   - Timer displays elapsed time and can be paused/resumed
+   - Useful for ad-hoc work, interruptions, or tasks worked on across multiple sessions
+   - Timer state persists across app sessions (can close app and resume later)
+   - Users can manually edit duration after stopping timer if needed
+
+3. **Bulk Estimation** (Fallback):
+   - When users complete tasks without tracking (mark complete without focus mode or timer)
+   - System prompts during evening review or next session: "You completed 3 tasks today without tracking. Estimate how long each took?"
+   - Users can quickly estimate durations (15m, 30m, 1h, 2h, or custom)
+   - Option to skip estimation if user doesn't remember
+   - Reduces data gaps for learning model
+
+**Duration Editing**:
+- Users can edit actual duration after task completion
+- Useful for correcting tracking errors or adding duration for untracked work
+- Edits are tracked separately to distinguish accurate tracking from estimates
+
+**Data Quality Indicators**:
+- Tracked durations marked as "automatic" (focus mode), "manual" (timer), or "estimated" (bulk/edited)
+- Learning model weights automatic and manual tracking higher than estimates
+- UI shows confidence level: "High confidence" (10+ tracked tasks), "Medium confidence" (3-9 tracked), "Low confidence" (1-2 tracked)
+
+**Post-MVP Consideration**: AI-assisted duration detection using calendar patterns, keyboard/mouse activity, or app usage data (with explicit user consent)
+
+### Break Time Implementation and Edge Cases
+
+**Decision**: Smart break handling that intelligently adapts to schedule constraints while prioritizing breaks when possible. Breaks are visual indicators in StackDay rather than separate calendar events.
+
+**Rationale**: Users' calendars vary greatly - some have back-to-back meetings, others have flexible schedules. Strict break requirements would prevent focus block creation in tightly scheduled days, while purely optional breaks might be ignored entirely. Smart break handling balances user well-being (encouraging breaks) with scheduling flexibility (allowing creation when breaks don't fit). Visual indicators keep the calendar clean while making breaks visible for time management.
+
+**Break Behavior**:
+
+1. **Standard Break Addition**:
+   - When creating a focus block, system attempts to add configured break time (default: 15 minutes after the block)
+   - Break duration and position (before/after) are user-configurable in settings
+   - Breaks are shown as visual indicators in StackDay's calendar view (shaded regions, not separate events)
+   - Break time is included in "available time" calculations for daily planning
+
+2. **Insufficient Gap Handling**:
+   - If the configured break doesn't fit between focus block end and next calendar event, system reduces break to fit available time
+   - Minimum break duration: 5 minutes
+   - Example: 15-minute break configured, but only 8 minutes until next meeting → system suggests 8-minute break
+   - User sees notification: "Reduced break to 8 minutes due to schedule constraints"
+
+3. **No Gap Available**:
+   - If less than 5 minutes available until next event, break is skipped entirely
+   - User sees warning: "No break time available - next event starts at 2:00pm"
+   - Focus block creation still allowed; user makes informed decision about tight scheduling
+
+4. **Manual Override**:
+   - Users can manually adjust or disable breaks for individual focus blocks
+   - Override options: "No break", "5 min", "10 min", "15 min", "30 min", "Custom"
+   - Overrides don't change global break settings
+   - Useful for users who manage their own break timing or have back-to-back commitments
+
+5. **Rescheduling Behavior**:
+   - When a focus block is moved to a new time slot, system recalculates break time based on new schedule
+   - May add, reduce, or remove break depending on available gap in new location
+   - User notified of break changes: "Break adjusted to 10 minutes in new time slot"
+
+6. **Calendar View Representation**:
+   - Breaks shown as lighter-shaded regions in StackDay's calendar view
+   - Hover/tap shows break details: "15-min break after Focus Block"
+   - Not synced to Google Calendar as separate events (keeps external calendar clean)
+   - Users can optionally enable "Show breaks in Google Calendar" setting to create explicit break events
+
+**Edge Cases**:
+- **Back-to-back meetings all day**: Focus blocks can still be created, warnings shown for missing breaks
+- **Break conflicts with flexible events**: User prompted to choose whether to shorten break or reschedule the flexible event
+- **Multiple focus blocks in sequence**: Breaks calculated between each block and surrounding events
+- **User works through break time**: No enforcement; breaks are guidance, not restrictions
